@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ввод кода</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="src/obfuscator.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Obfuscator JS</h1>
+    </header>
+    <h2>Введите ваш код:</h2>
+    <textarea id="codeInput" placeholder="Ваш код здесь..."></textarea>
+    <button onclick="runCode()">Выполнить код</button>
+    <button onclick="obfuscateCode()">Обфускация</button>
+
+    <div id="output"></div>
+
+    <button onclick="runObfuscatedCode()">Выполнить</button>
+
+    <script>
+        function runCode() {
+            try {
+                var code = document.getElementById('codeInput').value;
+                var result = eval(code);
+
+                document.getElementById('output').innerText = 'Результат выполнения кода:\n' + result;
+            } catch (error) {
+                console.error(`Ошибка выполнения кода: ${error.message}`);
+            }
+        }
+
+        function obfuscateCode() {
+            try {
+                var code = document.getElementById('codeInput').value;
+                var obfuscatedCode = obfuscate(code);
+
+                document.getElementById('output').innerText = 'Обфусцированный код:\n' + obfuscatedCode;
+            } catch (error) {
+                console.error(`Ошибка: ${error.message}`);
+            }
+        }
+
+        
+        function runObfuscatedCode() {
+        try {
+            var obfuscatedCode = document.getElementById('output').innerText.split('Обфусцированный код:\n')[1];
+
+            var executeObfuscatedCode = new Function('myArray', obfuscatedCode);
+
+            var myArray = [1, 2, 3]; 
+
+            var result = executeObfuscatedCode(myArray);
+
+            document.getElementById('output').innerText = 'Результат выполнения обфусцированного кода:\n' + result;
+        } catch (error) {
+            console.error(`Ошибка выполнения обфусцированного кода: ${error.message}`);
+        }
+    }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
